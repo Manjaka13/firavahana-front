@@ -1,0 +1,26 @@
+@font-face {
+	font-family: "OpenSans Bold";
+	src: url(../dist/fonts/OpenSans-Bold.ttf);
+}
+@font-face {
+	font-family: "OpenSans Italic";
+	src: url(../dist/fonts/OpenSans-Italic.ttf);
+}
+@font-face {
+	font-family: "OpenSans Regular";
+	src: url(../dist/fonts/OpenSans-Regular.ttf);
+}
+
+html,
+body,
+.app {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-size: 13pt;
+	background: rgb(245, 245, 245);
+}
+
+.app {
+}

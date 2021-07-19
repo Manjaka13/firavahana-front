@@ -1,0 +1,103 @@
+@font-face {
+	font-family: "OpenSans Bold";
+	src: url(../../dist/fonts/OpenSans-Bold.ttf);
+}
+@font-face {
+	font-family: "OpenSans Italic";
+	src: url(../../dist/fonts/OpenSans-Italic.ttf);
+}
+@font-face {
+	font-family: "OpenSans Regular";
+	src: url(../../dist/fonts/OpenSans-Regular.ttf);
+}
+
+html,
+body,
+.app {
+	width: 100%;
+	height: 100%;
+	background: rgb(245, 245, 245);
+}
+
+html,
+body,
+p,
+h1,
+h2,
+h3,
+form,
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	list-style-type: none;
+}
+
+button,
+input {
+	border: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+* {
+	font-family: "OpenSans Regular";
+}
+
+p,
+li,
+input,
+button {
+	font-size: 13pt;
+	color: rgb(70, 70, 70);
+}
+
+p,
+h1,
+h2,
+h3,
+table {
+	pointer-events: none;
+}
+
+p,
+button {
+	font-size: 13pt;
+}
+
+button,
+a {
+	transition: all 0.2s ease-out;
+}
+
+button {
+	padding: 10px 20px 10px 20px;
+	cursor: pointer;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.bold {
+		font-family: "OpenSans Bold";
+	}
+}
+
+$color-1: rgb(25, 48, 124);
+$color-2: rgb(33, 70, 192);
+
+@import "./card.scss";
+@import "./image-list.scss";
+
+@import "./nav.scss";
+@import "./contacts.scss";
+@import "./footer.scss";
+@import "./section_head.scss";
+@import "./fenoarivobe.scss";
+@import "./securite.scss";

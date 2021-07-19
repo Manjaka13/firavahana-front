@@ -1,0 +1,32 @@
+.footer {
+	display: flex;
+	justify-content: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background: $color-1;
+	width: 100%;
+	box-shadow: 0px 10px 30px rgb(30, 30, 30);
+
+	&__left {
+		margin-right: 10px;
+		color: white;
+	}
+
+	&__right {
+		margin-left: 10px;
+		color: white;
+	}
+
+	.fa {
+		color: red;
+	}
+
+	&__link {
+		color: rgb(140, 140, 140);
+		transition: all 0.2s ease-out;
+		pointer-events: auto;
+		&:hover {
+			color: rgb(57, 85, 243);
+		}
+	}
+}

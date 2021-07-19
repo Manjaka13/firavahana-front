@@ -1,0 +1,55 @@
+.card {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 0 10px 0;
+
+	&__item {
+		background: white;
+		width: 350px;
+		height: 500px;
+		overflow: hidden;
+		margin-top: 10px;
+		box-shadow: 7px 7px 20px rgb(200, 200, 200);
+		transition: all 0.2s ease-out;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		&:hover {
+			box-shadow: 7px 7px 20px rgb(126, 126, 126);
+		}
+	}
+
+	&__representation {
+		width: 100%;
+		height: 40%;
+		overflow: hidden;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+	}
+
+	&__title {
+		width: 80%;
+		font-size: 20pt;
+		padding: 10px 20px 10px 20px;
+		text-align: center;
+		border-bottom: 2px rgb(200, 200, 200) solid;
+	}
+
+	&__text {
+		text-align: justify;
+		padding: 10px 20px 10px 20px;
+	}
+
+	&__about {
+		color: white;
+		background: $color-1;
+		padding: 10px 20px 10px 20px;
+		&:hover {
+			background: $color-2;
+		}
+	}
+}

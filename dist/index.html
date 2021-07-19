@@ -9,9 +9,247 @@
 	</head>
 
 	<body>
-
 		<div id="app" class="app">
-			{{test}}
+			<!-- Nav -->
+			<nav class="nav">
+				<div class="nav__left">
+					<div class="nav__icon"><i class="fa fa-map-marker"></i></div>
+					<h1 class="nav__title">Firavahana</h1>
+				</div>
+				<ul class="nav__right">
+					<li class="nav__item" v-for="l in sections">
+						<a class="bold nav__link" :href="l.link" :title="l.hover">
+							<i :class="l.icon"></i> {{l.title}}
+						</a>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- Fenoarivobe -->
+			<section id="fenoarivobe" class="section fenoarivobe">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-bookmark"></i> Le district de Fenoarivobe
+					</h2>
+					<div class="section__separator"></div>
+					<p class="section__text" v-if="fenoarivobe.caption[0].length > 0">
+						{{fenoarivobe.caption[0]}}
+					</p>
+					<ul class="image-list">
+						<li class="image-list__item" v-for="item in fenoarivobe.images">
+							<a class="image-list__link" href="#0" title="Voir">
+								<img class="image-list__image" :src="item.image" alt="Image" />
+								<div class="image-list__content">
+									<button class="image-list__button">Voir</button>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<p class="section__text" v-if="fenoarivobe.caption[1].length > 0">
+						{{fenoarivobe.caption[1]}}
+					</p>
+					<table class="fenoarivobe__table">
+						<thead>
+							<th>Commune</th>
+							<th>Superficie (<span class="bold">hA</span>)</th>
+						</thead>
+						<tbody>
+							<tr v-for="commune in fenoarivobe.communes">
+								<td>{{commune.name}}</td>
+								<td>{{commune.superficie}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<!-- Firavahana -->
+			<section id="firavahana" class="section firavahana">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-map-marker"></i> La commune de Firavahana
+					</h2>
+					<div class="section__separator"></div>
+					<p class="section__text" v-if="firavahana.caption[0].length > 0">
+						{{firavahana.caption[0]}}
+					</p>
+					<ul class="image-list">
+						<li class="image-list__item" v-for="item in firavahana.images">
+							<a class="image-list__link" href="#0" title="Voir">
+								<img class="image-list__image" :src="item.image" alt="Image" />
+								<div class="image-list__content">
+									<button class="image-list__button">Voir</button>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<p class="section__text" v-if="firavahana.caption[1].length > 0">
+						{{firavahana.caption[1]}}
+					</p>
+					<ul class="card">
+						<li class="card__item" v-for="section in firavahana.sections">
+							<div class="card__representation">
+								<img class="card__image" :src="section.image" alt="Representation" />
+							</div>
+							<h3 class="card__title">
+								<i :class="section.icon"></i> {{section.name}}
+							</h3>
+							<p class="card__text">{{section.caption}}</p>
+							<a class="card__about" :href="section.link">
+								<i class="fa fa-info-circle"></i> A propos
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- Sécurité -->
+			<section id="securite" class="section securite">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-bookmark"></i> Sécurité
+					</h2>
+					<div class="section__separator"></div>
+					<p class="section__text" v-if="firavahana.securite.caption[0].length > 0">
+						{{firavahana.securite.caption[0]}}
+					</p>
+					<ul class="image-list">
+						<li class="image-list__item" v-for="item in firavahana.securite.images">
+							<a class="image-list__link" href="#0" title="Voir">
+								<img class="image-list__image" :src="item.image" alt="Image" />
+								<div class="image-list__content">
+									<button class="image-list__button">Voir</button>
+								</div>
+							</a>
+						</li>
+					</ul>
+					<p class="section__text" v-if="firavahana.securite.caption[1].length > 0">
+						{{firavahana.securite.caption[1]}}
+					</p>
+					<h2 class="securite__title">Liste des Zaza Mainty</h2>
+					<ul class="securite__list">
+						<li class="securite__minus" v-if="zazamainty_fullList">
+							<button class="securite__showlless" @click="hide_zazamaintyFullList">
+								<i class="fa fa-minus-circle"></i> Voir moins
+							</button>
+						</li>
+						<li
+							class="securite__item"
+							v-for="zazamainty in securite_min"
+							v-if="!zazamainty_fullList"
+						>
+							<div class="securite__representation">
+								<img
+									class="securite__image"
+									:src="zazamainty.image"
+									:alt="zazamainty.name"
+								/>
+							</div>
+							<p class="bold securite__name">{{zazamainty.name}}</p>
+						</li>
+						<li class="securite__plus" v-if="!zazamainty_fullList">
+							<button class="securite__showmore" @click="show_zazamaintyFullList">
+								<i class="fa fa-plus-circle"></i> Voir plus
+							</button>
+						</li>
+						<li
+							class="securite__item"
+							v-for="zazamainty in securite"
+							v-if="zazamainty_fullList"
+						>
+							<div class="securite__representation">
+								<img
+									class="securite__image"
+									:src="zazamainty.image"
+									:alt="zazamainty.name"
+								/>
+							</div>
+							<p class="bold securite__name">{{zazamainty.name}}</p>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- Contacts -->
+			<section id="contacts" class="contacts">
+				<h2 class="contacts__title"><i class="fa fa-envelope"></i> Contacts</h2>
+				<div class="contacts__container">
+					<ul class="contacts__list">
+						<li class="contacts__item" v-for="l in sections">
+							<a class="contacts__link" :href="l.link" :title="l.hover">
+								<i :class="l.icon"></i> {{l.title}}
+							</a>
+						</li>
+					</ul>
+					<ul class="contacts__list">
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0" title="Suivre le lien.">
+								Nos partenaires
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0" title="Suivre le lien.">
+								Mentions légales
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0" title="Suivre le lien.">
+								Conditions d'utilisations
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0" title="Suivre le lien.">
+								Politique des cookies
+							</a>
+						</li>
+					</ul>
+					<ul class="contacts__list">
+						<li class="contacts__item">
+							<a class="contacts__link" :href="developers[0].link">
+								<i :class="developers[0].icon1"></i> {{developers[0].email}}
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0">
+								<i :class="developers[0].icon2"></i> {{developers[0].number}}
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" :href="developers[1].link">
+								<i :class="developers[1].icon1"></i> {{developers[1].email}}
+							</a>
+						</li>
+						<li class="contacts__item">
+							<a class="contacts__link" href="#0">
+								<i :class="developers[1].icon2"></i> {{developers[1].number}}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<!-- Footer -->
+			<footer class="footer">
+				<p class="footer__left">
+					Fait avec <i class="footer__icon fa fa-heart"></i> by
+					<a
+						class="bold footer__link"
+						:href="developers[0].link"
+						title="Le web developer."
+					>
+						{{developers[0].name}}
+					</a>
+					et
+					<a
+						class="bold footer__link"
+						:href="developers[1].link"
+						title="Le web developer."
+					>
+						{{developers[1].name}} </a
+					>.
+				</p>
+				<p class="footer__right">Copyright © 2020 - {{new Date().getFullYear()}}</p>
+			</footer>
 		</div>
 
 		<script src="bundle.js"></script>

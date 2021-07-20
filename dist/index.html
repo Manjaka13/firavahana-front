@@ -5,6 +5,13 @@
 		<title>Firavahana</title>
 
 		<link rel="stylesheet" href="fontawesome/css/all.min.css" />
+		<link rel="stylesheet" href="swiper/swiper-bundle.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		/>
+		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 		<script src="vue.min.js"></script>
 	</head>
 
@@ -14,16 +21,39 @@
 			<nav class="nav">
 				<div class="nav__left">
 					<div class="nav__icon"><i class="fa fa-map-marker"></i></div>
-					<h1 class="nav__title">Firavahana</h1>
+					<h1 class="nav__title">
+						{{shown_slider === -1 ? "Firavahana" : shown_slider_caption}}
+					</h1>
 				</div>
-				<ul class="nav__right">
+				<ul class="nav__right" v-if="shown_slider === -1">
 					<li class="nav__item" v-for="l in sections">
 						<a class="bold nav__link" :href="l.link" :title="l.hover">
 							<i :class="l.icon"></i> {{l.title}}
 						</a>
 					</li>
 				</ul>
+				<button
+					class="nav__close"
+					title="Fermer le slide."
+					v-if="shown_slider >= 0"
+					@click="hide_slider"
+				>
+					<i class="fa fa-times-circle"></i> Fermer
+				</button>
 			</nav>
+
+			<!-- Cover -->
+			<div id="cover" class="section cover">
+				<div class="cover__container">
+					<h2 class="cover__title">La commune prospère de Firavahana</h2>
+					<div class="cover__separator"></div>
+					<div id="map" class="cover__map"></div>
+					<a class="cover__discover" href="#fenoarivobe" title="Découvrir">
+						<i class="fa fa-map-marker"></i>
+						Découvrir
+					</a>
+				</div>
+			</div>
 
 			<!-- Fenoarivobe -->
 			<section id="fenoarivobe" class="section fenoarivobe">
@@ -32,35 +62,53 @@
 						<i class="icon fa fa-bookmark"></i> Le district de Fenoarivobe
 					</h2>
 					<div class="section__separator"></div>
-					<p class="section__text" v-if="fenoarivobe.caption[0].length > 0">
-						{{fenoarivobe.caption[0]}}
-					</p>
-					<ul class="image-list">
-						<li class="image-list__item" v-for="item in fenoarivobe.images">
-							<a class="image-list__link" href="#0" title="Voir">
-								<img class="image-list__image" :src="item.image" alt="Image" />
-								<div class="image-list__content">
-									<button class="image-list__button">Voir</button>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<p class="section__text" v-if="fenoarivobe.caption[1].length > 0">
-						{{fenoarivobe.caption[1]}}
-					</p>
-					<table class="fenoarivobe__table">
-						<thead>
-							<th>Commune</th>
-							<th>Superficie (<span class="bold">hA</span>)</th>
-						</thead>
-						<tbody>
-							<tr v-for="commune in fenoarivobe.communes">
-								<td>{{commune.name}}</td>
-								<td>{{commune.superficie}}</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
+				<p class="section__text" v-if="fenoarivobe.caption[0].length > 0">
+					{{fenoarivobe.caption[0]}}
+				</p>
+				<!-- Fenoarivobe image list -->
+				<ul class="image-list">
+					<li class="image-list__item" v-for="(item, key) in fenoarivobe.images">
+						<a
+							class="image-list__link"
+							href="#0"
+							title="Voir"
+							@click="show_slider(0, 'Le district de Fenoarivobe', '.swiper-fenoarivobe', key)"
+						>
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- Fenoarivobe image slider -->
+				<div :class="slider_class[0]">
+					<div class="swiper-container swiper-fenoarivobe">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="item in fenoarivobe.images">
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<p class="section__text" v-if="fenoarivobe.caption[1].length > 0">
+					{{fenoarivobe.caption[1]}}
+				</p>
+				<table class="fenoarivobe__table">
+					<thead>
+						<th>Commune</th>
+						<th>Superficie (<span class="bold">hA</span>)</th>
+					</thead>
+					<tbody>
+						<tr v-for="commune in fenoarivobe.communes">
+							<td>{{commune.name}}</td>
+							<td>{{commune.superficie}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</section>
 
 			<!-- Firavahana -->
@@ -70,103 +118,398 @@
 						<i class="icon fa fa-map-marker"></i> La commune de Firavahana
 					</h2>
 					<div class="section__separator"></div>
-					<p class="section__text" v-if="firavahana.caption[0].length > 0">
-						{{firavahana.caption[0]}}
-					</p>
-					<ul class="image-list">
-						<li class="image-list__item" v-for="item in firavahana.images">
-							<a class="image-list__link" href="#0" title="Voir">
-								<img class="image-list__image" :src="item.image" alt="Image" />
-								<div class="image-list__content">
-									<button class="image-list__button">Voir</button>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<p class="section__text" v-if="firavahana.caption[1].length > 0">
-						{{firavahana.caption[1]}}
-					</p>
-					<ul class="card">
-						<li class="card__item" v-for="section in firavahana.sections">
-							<div class="card__representation">
-								<img class="card__image" :src="section.image" alt="Representation" />
-							</div>
-							<h3 class="card__title">
-								<i :class="section.icon"></i> {{section.name}}
-							</h3>
-							<p class="card__text">{{section.caption}}</p>
-							<a class="card__about" :href="section.link">
-								<i class="fa fa-info-circle"></i> A propos
-							</a>
-						</li>
-					</ul>
 				</div>
+				<p class="section__text" v-if="firavahana.caption[0].length > 0">
+					{{firavahana.caption[0]}}
+				</p>
+				<!-- Firavahana image list -->
+				<ul class="image-list">
+					<li class="image-list__item" v-for="(item, key) in firavahana.images">
+						<a
+							class="image-list__link"
+							href="#0"
+							title="Voir"
+							@click="show_slider(1, 'La commune de Firavahana', '.swiper-firavahana', key)"
+						>
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- Firavahana image slider -->
+				<div :class="slider_class[1]">
+					<div class="swiper-container swiper-firavahana">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="item in firavahana.images">
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<p class="section__text" v-if="firavahana.caption[1].length > 0">
+					{{firavahana.caption[1]}}
+				</p>
+				<ul class="card">
+					<li class="card__item" v-for="section in firavahana.sections">
+						<div class="card__representation">
+							<img class="card__image" :src="section.image" alt="Representation" />
+						</div>
+						<h3 class="card__title">
+							<i :class="section.icon"></i> {{section.name}}
+						</h3>
+						<p class="card__text">{{section.caption}}</p>
+						<a class="card__about" :href="section.link">
+							<i class="fa fa-info-circle"></i> A propos
+						</a>
+					</li>
+				</ul>
 			</section>
 
 			<!-- Sécurité -->
 			<section id="securite" class="section securite">
 				<div class="section__head">
 					<h2 class="section__title">
-						<i class="icon fa fa-bookmark"></i> Sécurité
+						<i class="icon fa fa-bookmark"></i> La sécurité locale
 					</h2>
 					<div class="section__separator"></div>
-					<p class="section__text" v-if="firavahana.securite.caption[0].length > 0">
-						{{firavahana.securite.caption[0]}}
-					</p>
-					<ul class="image-list">
-						<li class="image-list__item" v-for="item in firavahana.securite.images">
-							<a class="image-list__link" href="#0" title="Voir">
-								<img class="image-list__image" :src="item.image" alt="Image" />
-								<div class="image-list__content">
-									<button class="image-list__button">Voir</button>
-								</div>
-							</a>
-						</li>
-					</ul>
-					<p class="section__text" v-if="firavahana.securite.caption[1].length > 0">
-						{{firavahana.securite.caption[1]}}
-					</p>
-					<h2 class="securite__title">Liste des Zaza Mainty</h2>
-					<ul class="securite__list">
-						<li class="securite__minus" v-if="zazamainty_fullList">
-							<button class="securite__showlless" @click="hide_zazamaintyFullList">
-								<i class="fa fa-minus-circle"></i> Voir moins
-							</button>
-						</li>
-						<li
-							class="securite__item"
-							v-for="zazamainty in securite_min"
-							v-if="!zazamainty_fullList"
+				</div>
+				<p class="section__text" v-if="firavahana.securite.caption[0].length > 0">
+					{{firavahana.securite.caption[0]}}
+				</p>
+				<!-- Sécurité image list -->
+				<ul class="image-list">
+					<li
+						class="image-list__item"
+						v-for="(item, key) in firavahana.securite.images"
+					>
+						<a
+							class="image-list__link"
+							href="#0"
+							title="Voir"
+							@click="show_slider(2, 'La sécurité locale', '.swiper-securite', key)"
 						>
-							<div class="securite__representation">
-								<img
-									class="securite__image"
-									:src="zazamainty.image"
-									:alt="zazamainty.name"
-								/>
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
 							</div>
-							<p class="bold securite__name">{{zazamainty.name}}</p>
-						</li>
-						<li class="securite__plus" v-if="!zazamainty_fullList">
-							<button class="securite__showmore" @click="show_zazamaintyFullList">
-								<i class="fa fa-plus-circle"></i> Voir plus
-							</button>
-						</li>
-						<li
-							class="securite__item"
-							v-for="zazamainty in securite"
+						</a>
+					</li>
+				</ul>
+				<!-- Sécurité image slider -->
+				<div :class="slider_class[2]">
+					<div class="swiper-container swiper-securite">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="item in firavahana.securite.images">
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<h3 class="securite__title">
+					<i class="fa fa-list"></i> Liste des Zaza Mainty et Zaza Mena
+				</h3>
+				<p class="section__text" v-if="firavahana.securite.caption[1].length > 0">
+					{{firavahana.securite.caption[1]}}
+				</p>
+				<!-- Liste sécurité -->
+				<table class="securite__table">
+					<thead>
+						<th>Photo</th>
+						<th>Nom</th>
+						<th>Zaza mainty</th>
+						<th>Zaza mena</th>
+						<th>Téléphone</th>
+					</thead>
+					<tbody>
+						<!-- Show less button -->
+						<tr
+							class="securite__showless"
 							v-if="zazamainty_fullList"
+							@click="hide_zazaMaintyFullList"
 						>
-							<div class="securite__representation">
-								<img
-									class="securite__image"
-									:src="zazamainty.image"
-									:alt="zazamainty.name"
-								/>
+							<td colspan="5">
+								<button class="button">
+									<i class="fa fa-minus-circle"></i> Voir moins
+								</button>
+							</td>
+						</tr>
+						<!-- Minified list -->
+						<tr
+							v-for="(person, key) in securite_min"
+							v-if="!zazamainty_fullList"
+							@click="show_slider(3, 'Zaza Mainty et Zaza Mena', '.swiper-list-securite', key)"
+						>
+							<td class="securite__center">
+								<img class="securite__image" :src="person.image" :alt="person.name" />
+							</td>
+							<td>{{person.name}}</td>
+							<td class="securite__center" v-if="person.zaza_mainty">
+								<i class="securite__check fa fa-check-circle"></i>
+							</td>
+							<td class="securite__center" v-if="!person.zaza_mainty">
+								<i class="securite__uncheck fa fa-minus-circle"></i>
+							</td>
+							<td class="securite__center" v-if="!person.zaza_mainty">
+								<i class="securite__check fa fa-check-circle"></i>
+							</td>
+							<td class="securite__center" v-if="person.zaza_mainty">
+								<i class="securite__uncheck fa fa-minus-circle"></i>
+							</td>
+							<td>{{person.phone}}</td>
+						</tr>
+						<!-- Full list -->
+						<tr
+							v-for="(person, key) in securite"
+							v-if="zazamainty_fullList"
+							@click="show_slider(3, 'Zaza Mainty et Zaza Mena', '.swiper-list-securite', key)"
+						>
+							<td class="securite__center">
+								<img class="securite__image" :src="person.image" :alt="person.name" />
+							</td>
+							<td>{{person.name}}</td>
+							<td class="securite__center" v-if="person.zaza_mainty">
+								<i class="securite__check fa fa-check-circle"></i>
+							</td>
+							<td class="securite__center" v-if="!person.zaza_mainty">
+								<i class="securite__uncheck fa fa-minus-circle"></i>
+							</td>
+							<td class="securite__center" v-if="!person.zaza_mainty">
+								<i class="securite__check fa fa-check-circle"></i>
+							</td>
+							<td class="securite__center" v-if="person.zaza_mainty">
+								<i class="securite__uncheck fa fa-minus-circle"></i>
+							</td>
+							<td>{{person.phone}}</td>
+						</tr>
+						<!-- Show more button -->
+						<tr
+							class="securite__showmore"
+							v-if="!zazamainty_fullList"
+							@click="show_zazaMaintyFullList"
+						>
+							<td colspan="5">
+								<button class="button">
+									<i class="fa fa-plus-circle"></i> Voir plus
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- Liste sécurité slider -->
+				<div :class="slider_class[3]">
+					<div class="swiper-container swiper-list-securite">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="(persone, key) in securite">
+								<img class="slider__image" :src="persone.image" :alt="persone.name" />
+								<p class="slider__caption">{{persone.name}}</p>
 							</div>
-							<p class="bold securite__name">{{zazamainty.name}}</p>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Infrastructures -->
+			<section id="infrastructures" class="section infrastructures">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-building"></i> Infrastructures en place
+					</h2>
+					<div class="section__separator"></div>
+				</div>
+				<p
+					class="section__text"
+					v-if="firavahana.infrastructures.caption[0].length > 0"
+				>
+					{{firavahana.infrastructures.caption[0]}}
+				</p>
+				<!-- Infrastructures image list -->
+				<ul class="image-list">
+					<li
+						class="image-list__item"
+						v-for="(item, key) in firavahana.infrastructures.images"
+						@click="show_slider(4, 'Les infrastructures en place', '.swiper-infrastructures', key)"
+					>
+						<a class="image-list__link" href="#0" title="Voir">
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- Infrastructures slider -->
+				<div :class="slider_class[4]">
+					<div class="swiper-container swiper-infrastructures">
+						<div class="swiper-wrapper">
+							<div
+								class="swiper-slide"
+								v-for="(item, key) in firavahana.infrastructures.images"
+							>
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<p
+					class="section__text"
+					v-if="firavahana.infrastructures.caption[1].length > 0"
+				>
+					{{firavahana.infrastructures.caption[1]}}
+				</p>
+			</section>
+
+			<!-- Mines -->
+			<section id="mines" class="section mines">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-building"></i> La géologie et mines
+					</h2>
+					<div class="section__separator"></div>
+				</div>
+				<p class="section__text" v-if="firavahana.mines.caption[0].length > 0">
+					{{firavahana.mines.caption[0]}}
+				</p>
+				<!-- Mines image list -->
+				<ul class="image-list">
+					<li
+						class="image-list__item"
+						v-for="(item, key) in firavahana.mines.images"
+						@click="show_slider(5, 'Géologie et mines', '.swiper-mines', key)"
+					>
+						<a class="image-list__link" href="#0" title="Voir">
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- Mines slider -->
+				<div :class="slider_class[5]">
+					<div class="swiper-container swiper-mines">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide" v-for="(item, key) in firavahana.mines.images">
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<p class="section__text" v-if="firavahana.mines.caption[1].length > 0">
+					{{firavahana.mines.caption[1]}}
+				</p>
+			</section>
+
+			<!-- Fokotany -->
+			<section id="fokotany" class="section fokotany">
+				<div class="section__head">
+					<h2 class="section__title">
+						<i class="icon fa fa-building"></i> Les Fokotany
+					</h2>
+					<div class="section__separator"></div>
+				</div>
+				<p class="section__text" v-if="firavahana.fokotany.caption[0].length > 0">
+					{{firavahana.fokotany.caption[0]}}
+				</p>
+				<!-- Fokotany image list -->
+				<ul class="image-list">
+					<li
+						class="image-list__item"
+						v-for="(item, key) in firavahana.fokotany.images"
+						@click="show_slider(6, 'A propos des Fokotany', '.swiper-fokotany-image', key)"
+					>
+						<a class="image-list__link" href="#0" title="Voir">
+							<img class="image-list__image" :src="item.image" alt="Image" />
+							<div class="image-list__content">
+								<button class="image-list__button">Voir</button>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- Fokotany image slider -->
+				<div :class="slider_class[6]">
+					<div class="swiper-container swiper-fokotany-image">
+						<div class="swiper-wrapper">
+							<div
+								class="swiper-slide"
+								v-for="(item, key) in firavahana.fokotany.images"
+							>
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+				<p class="section__text" v-if="firavahana.fokotany.caption[1].length > 0">
+					{{firavahana.fokotany.caption[1]}}
+				</p>
+				<h3 class="fokotany__liste-title">
+					<i class="fa fa-list"></i> Liste des Fokotany
+				</h3>
+				<!-- Fokotany liste -->
+				<div class="fokotany__liste-box">
+					<button
+						class="fokotany__show-less"
+						title="Raccourcir la liste."
+						v-if="fokotany_fullList"
+						@click="hide_fokotanyFullList"
+					>
+						<i class="fa fa-minus-circle"></i> Voir moins
+					</button>
+					<ul class="fokotany__liste">
+						<li
+							class="fokotany__item"
+							v-for="(fokotany, key) in fokotany_min"
+							v-if="!fokotany_fullList"
+							:style="fokotany.style"
+							@click="show_slider(7, 'Liste des Fokotany', '.swiper-fokotany-liste', key)"
+						>
+							<p class="fokotany__caption">{{fokotany.caption}}</p>
+						</li>
+						<li
+							class="fokotany__item"
+							v-for="(fokotany, key) in firavahana.fokotany.liste"
+							v-if="fokotany_fullList"
+							:style="fokotany.style"
+							@click="show_slider(7, 'Liste des Fokotany', '.swiper-fokotany-liste', key)"
+						>
+							<p class="fokotany__caption">{{fokotany.caption}}</p>
 						</li>
 					</ul>
+					<button
+						class="fokotany__show-more"
+						title="Etendre la liste."
+						v-if="!fokotany_fullList"
+						@click="show_fokotanyFullList"
+					>
+						<i class="fa fa-plus-circle"></i> Voir plus
+					</button>
+				</div>
+				<!-- Fokotany image slider -->
+				<div :class="slider_class[7]">
+					<div class="swiper-container swiper-fokotany-liste">
+						<div class="swiper-wrapper">
+							<div
+								class="swiper-slide"
+								v-for="(item, key) in firavahana.fokotany.liste"
+							>
+								<img class="slider__image" :src="item.image" :alt="item.caption" />
+								<p class="slider__caption">{{item.caption}}</p>
+							</div>
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
 				</div>
 			</section>
 
@@ -253,5 +596,6 @@
 		</div>
 
 		<script src="bundle.js"></script>
+		<script src="./swiper/swiper-bundle.min.js"></script>
 	</body>
 </html>

@@ -65,4 +65,13 @@
 			color: white;
 		}
 	}
+
+	&__close {
+		margin-right: 50px;
+		background: rgb(168, 0, 0);
+		color: white;
+		&:hover {
+			background: red;
+		}
+	}
 }

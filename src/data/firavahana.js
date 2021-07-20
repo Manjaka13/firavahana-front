@@ -1,4 +1,4 @@
-import sections from "./sections";
+import fokotany from "./fokotany";
 
 const firavahana = {
 	caption: [
@@ -62,6 +62,81 @@ const firavahana = {
 			},
 		],
 	},
+	infrastructures: {
+		caption: [
+			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+		],
+		images: [
+			{
+				image: "./images/infrastructures/eau_potable_firavahana.jpg",
+				caption: "Les bornes d'eau potables.",
+			},
+			{
+				image: "./images/infrastructures/education_firavahana.jpg",
+				caption: "Les établissements scolaires.",
+			},
+			{
+				image: "./images/infrastructures/routes_firavahana.jpg",
+				caption: "Les routes dans la commune de Firavahana.",
+			},
+			{
+				image: "./images/infrastructures/projet_sante_firavahana.jpg",
+				caption: "Les Centre de Santé de Base.",
+			},
+			{
+				image: "./images/infrastructures/projet_education_firavahana.jpg",
+				caption: "Les projets d'éducation de Firavahana.",
+			},
+			{
+				image: "./images/infrastructures/projet_route_firavahana.jpg",
+				caption: "Les projets de routes.",
+			},
+		],
+	},
+	mines: {
+		caption: [
+			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+		],
+		images: [
+			{
+				image: "./images/mines/elevation_et_pente.jpg",
+				caption: "Niveau d'élévation et les pentes.",
+			},
+			{
+				image: "./images/mines/geologie_firavahana.jpg",
+				caption: "La géologie particulière de Firavahana.",
+			},
+			{
+				image: "./images/mines/hydrographie_firavahana.jpg",
+				caption: "L'hydrographie de la commune.",
+			},
+		],
+	},
+	fokotany: { ...fokotany },
+	limites: [
+		[-18.649171, 46.750493],
+		[-18.624121, 46.781049],
+		[-18.606552, 46.792379],
+		[-18.568478, 46.832891],
+		[-18.529745, 46.887823],
+		[-18.527792, 46.938978],
+		[-18.529745, 47.011075],
+		[-18.549927, 47.039571],
+		[-18.579218, 47.044034],
+		[-18.609806, 47.020345],
+		[-18.631929, 46.972623],
+		[-18.69243, 46.941724],
+		[-18.697958, 46.912885],
+		[-18.692755, 46.880269],
+		[-18.686251, 46.85658],
+		[-18.711291, 46.832891],
+		[-18.727874, 46.806112],
+		[-18.72462, 46.75873],
+		[-18.71333, 46.74794],
+		[-18.69017, 46.75173],
+	],
 };
 
 function _build_sections_links() {

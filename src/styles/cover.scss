@@ -1,0 +1,55 @@
+.cover {
+	padding-top: 80px;
+
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 100%;
+		height: calc(100vh - 80px);
+	}
+
+	&__title {
+		font-size: 30pt;
+		text-align: center;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+
+	&__separator {
+		width: 40%;
+		height: 4px;
+		height: 5px;
+		background: rgb(50, 50, 50);
+		border-radius: 4px;
+		margin-bottom: 20px;
+	}
+
+	&__map {
+		width: 100%;
+		height: 70vh;
+		box-shadow: 7px 7px 20px rgb(200, 200, 200);
+		z-index: 0;
+	}
+
+	&__discover {
+		position: absolute;
+		bottom: 15%;
+		margin: auto;
+		z-index: 10;
+		background: $color-1;
+		border-radius: 5px;
+		font-size: 15pt;
+		padding: 10px 20px 10px 20px;
+		color: white;
+		cursor: pointer;
+		transition: all 0.2s ease-out;
+		.fa {
+			margin-right: 5px;
+		}
+		&:hover {
+			background: $color-2;
+		}
+	}
+}

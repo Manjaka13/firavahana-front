@@ -2,8 +2,8 @@ import fokotany from "./fokotany";
 
 const firavahana = {
 	caption: [
-		"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
-		"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+		"L’expression « Etude monographique » vient de mono qui signifie « un, unique » et graphique qui signifie « écrit, représentation illustrée ». Elle représente un essai basé sur un sujet spécifique, une zone géographique limitée  qui est dans ce cas: la Commune rurale de Firavahana . L’étude monographique reflète les caractéristiques réelles de la commune telles que son histoire, sa sociologie, ses ressources naturelles, son économie et ses infrastructures.",
+		"Grace à l’intervention du Maire de firavahana, Les étudiants en second cycle ont pu bénéficier d’un centre d’examen du bacc lauréat pour la première pendant toutes ces année.. Voici la totalités des candidats pour l’examen du bacc lauréat à firavahana ",
 	],
 	images: [
 		{
@@ -31,7 +31,7 @@ const firavahana = {
 			name: "Infrastructures",
 			icon: "fa fa-building",
 			caption:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate sunt fugit placeat, doloribus cum asperiores iure illo consequuntur non dolorem, praesentium qui necessitatibus ullam tempore dolore.",
+				"Récemment, grâce à la Maire, Le CSB II dans le fkt firavahana beneficie d’une autre batiment (blocs operatoire), deux lits pour les hospitalisés et des fournitures sanitaires,et l’arrive d’un medecin chirurgien pour renforcer les soins.",
 			image: "./images/infrastructures/representation.jpg",
 		},
 		{
@@ -64,8 +64,8 @@ const firavahana = {
 	},
 	infrastructures: {
 		caption: [
-			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
-			"Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat. Aliquip minim laboris laboris dolore sed laborum deserunt in officia nulla ad est amet nulla quis deserunt elit deserunt consectetur ut proident tempor fugiat sed voluptate amet veniam consequat.",
+			"Firavahana dispose de 4 infrastructure de CSB dont : un CSB I situé dans le FKT Tsarahonenana, trois CSB II situés dans le FKT Firavahana, dans le FKT Ambohikambana et dans le FKT Miandrarivo I.",
+			"Il y a qu’un centre de loisir public (à part l’infrastructure de loisir dans les écoles) a firavahana, le Coliseum de Firavahana qui se situe dans le firavahana.Tels qu’on peut le voir sur la photo ci-dessous , la construction du Coliseum n’est pas encore achevé jusqu’à la fin à cause du manque de budget. Il manque encore il manque encore les pistes de courses, gradin, tribune centrale, vestiaire, douche.",
 		],
 		images: [
 			{

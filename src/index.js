@@ -4,6 +4,7 @@ import developers from "./data/developers.js";
 import fenoarivobe from "./data/fenoarivobe.js";
 import firavahana from "./data/firavahana.js";
 import securite from "./data/securite.js";
+import population from "./data/population.js";
 
 (function () {
 	const app = new Vue({
@@ -13,6 +14,7 @@ import securite from "./data/securite.js";
 			developers: [...developers],
 			fenoarivobe: { ...fenoarivobe },
 			firavahana: { ...firavahana },
+			population: { ...population },
 			securite: [...securite],
 			securite_min: [],
 			zazamainty_fullList: false,
@@ -21,6 +23,7 @@ import securite from "./data/securite.js";
 			slider_class: [],
 			swiper: null,
 			fokotany_fullList: false,
+			population_fullList: false,
 			fokotany_min: [],
 		},
 		mounted: function () {
@@ -68,6 +71,12 @@ import securite from "./data/securite.js";
 			},
 			hide_fokotanyFullList() {
 				this.fokotany_fullList = false;
+			},
+			show_populationFullList() {
+				this.population_fullList = true;
+			},
+			hide_populationFullList() {
+				this.population_fullList = false;
 			},
 			show_slider(id, caption, swiper_class, initial) {
 				if (typeof id === "number" && id >= 0) {

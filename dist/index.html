@@ -386,7 +386,7 @@
 				>
 					{{firavahana.infrastructures.caption[1]}}
 				</p>
-				<video class="section__video" controls>
+				<!-- <video class="section__video" controls>
 					<source src="./videos/infrastructures.mp4" type="video/mp4" />
 					<p>
 						Votre navigateur ne prend pas en charge les vidéos HTML5. Voici
@@ -394,7 +394,76 @@
 							>un lien pour télécharger la vidéo</a
 						>.
 					</p>
-				</video>
+				</video> -->
+			</section>
+
+			<!-- Démographie -->
+			<section id="demographie" class="section population">
+				<div class="section__head">
+					<h2 class="section__title"><i class="icon fa fa-users"></i> Population</h2>
+					<div class="section__separator"></div>
+				</div>
+				<p class="section__text" v-if="firavahana.mines.caption[0].length > 0">
+					{{firavahana.population.caption[0]}}
+				</p>
+				<!-- Table of population -->
+				<table class="population__table">
+					<thead>
+						<th>Fokotany</th>
+						<th colspan="5">Lahy</th>
+						<th colspan="5">Vavy</th>
+						<th>Total</th>
+					</thead>
+					<tbody>
+						<!-- Show less button -->
+						<tr
+							class="population__showless"
+							v-if="population_fullList"
+							@click="hide_populationFullList"
+						>
+							<td class="population__showless" colspan="12">
+								<button class="button">
+									<i class="fa fa-minus-circle"></i> Voir moins
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td class="population__head">0 à 5</td>
+							<td class="population__head">6 à 17</td>
+							<td class="population__head">18 à 59</td>
+							<td class="population__head">+60</td>
+							<td class="population__head">S/T</td>
+							<td class="population__head">0 à 5</td>
+							<td class="population__head">6 à 17</td>
+							<td class="population__head">18 à 59</td>
+							<td class="population__head">+60</td>
+							<td class="population__head">S/T</td>
+							<td></td>
+						</tr>
+						<tr
+							v-for="(table, keyTable) in population_fullList ? population.list : population.list.filter((i, k) => k < 5)"
+							:key="keyTable"
+						>
+							<td class="population__table-fokotany">{{table.name}}</td>
+							<td v-for="(stat, keyItem) in table.age" :key="keyItem">{{stat}}</td>
+							<td>
+								{{table.age.reduce((previousValue, currentValue) => previousValue +
+								currentValue)}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="population__more">
+					<button
+						class="population__show-more"
+						title="Etendre la liste."
+						v-if="!population_fullList"
+						@click="show_populationFullList"
+					>
+						<i class="fa fa-plus-circle"></i> Voir plus
+					</button>
+				</div>
 			</section>
 
 			<!-- Mines -->
